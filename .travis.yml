@@ -1,0 +1,23 @@
+node_js:
+- '4.2'
+language: node_js
+before_install:
+- chmod +x -R build
+- git config --global user.email "${GIT_EMAIL}"
+- git config --global user.name "${GIT_NAME}";
+install:
+- npm install
+script:
+- npm run-script build
+- npm test
+after_success:
+- "./build/repo-cli.sh"
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: todd@deepelement.com
+  api_key:
+    secure: oiUb7Y6139cXtNokKKy558UuqXNOCoSBno495W1HWwg6Whmixmrn3TCmyiRbM0Ps5xpY/7QciPGgge2qwywHOHKKDEbGZ+s/5nIO6WF9D1Y6uicHwiGRVSKuzlgAFgL7mb2EauO4RXkXUOsMu6ONX76DBMC1yJZ/bDjtA9oSZLVBp2+e1dSUdC6Fkzq8Muui5BtYF5/zk6YaXwQ7iZluGkNp1z1b8s8mSFX5Z82wHDE9FQw13/ew/3T+0vn2bSosn61/xxSpvUjJIBWx5g5eCsjdSUtEOVX8qp0qwACF23wmygVy5dQd4TxuIhJgdFsWH0Kpll2zJ5qsF//F75Vrj+yJO0QoK11hJ2IREX3Qx0+YzIcc9p0uXlwPEiKCbP26uBUFbMY9HIkmDHxIo6sXxvWG8CVMAUl8lv/li4aZKlDd7deLyeXDLBcGSf5GhoCqLaWaJ1RPqSPu9D7khBgl+S6GYDb8tnGq8Iw7OI+b/LrfUafocS8pcxCa/ZRmXpg2NsU9iSx0365cZqhnYwdAQOtA5WKxTKpMrLxqyj1hbH9C+qeRoSDziVl9lZ6KM2zgyzCTollIg1nXDQ6WR36ZJ2F8UzDspv4ta+oPTucLia2+cJ4BxfJtScGIGt0xuan8Hci/XU49Ji6mpe8RQ5haMxJyJWG6p7xR98KFgV+6Oeo=
+  on:
+    tags: true
+    repo: DeepElement/winjsrocks-plugin-storage
