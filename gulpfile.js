@@ -2,7 +2,8 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
   runSequence = require('gulp-run-sequence'),
   rimraf = require('rimraf'),
-  fs = require('fs-extra');
+  fs = require('fs-extra'),
+  replace = require('gulp-replace');
 
 var gutil = require("gulp-util"),
   webpack = require("webpack"),
@@ -14,12 +15,13 @@ gulp.task("dist", function(cb) {
     'dist:clean',
     'dist:package:debug',
     'dist:package:release',
-    'dist:package:latest-entry',
     cb);
 });
 
-gulp.task("dist:package:latest-entry", function(cb) {
-  fs.copy("dist/winjsrocks-plugin-storage-" + packageConfig.version + ".js", "dist/latest.js", cb);
+gulp.task("npm:pre-publish", function(cb) {
+  return gulp.src('./package.json')
+    .pipe(replace(/latest.js/g, packageConfig.name + "-" + packageConfig.version + ".js"))
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task("dist:package:release", function(cb) {
@@ -36,7 +38,7 @@ gulp.task("dist:package:release", function(cb) {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   );
-  myConfig.output.filename = "dist/winjsrocks-plugin-storage-" + packageConfig.version + ".js";
+  myConfig.output.filename = "dist/" + packageConfig.name + "-" + packageConfig.version + ".js";
 
   // run webpack
   webpack(myConfig, function(err, stats) {
@@ -53,7 +55,7 @@ gulp.task("dist:package:debug", function(cb) {
   var myDevConfig = Object.create(webpackConfig);
   myDevConfig.devtool = "sourcemap";
   myDevConfig.debug = true;
-  myDevConfig.output.filename = "dist/winjsrocks-plugin-storage-" + packageConfig.version + ".debug.js";
+  myDevConfig.output.filename = "dist/" + packageConfig.name + "-" + packageConfig.version + ".debug.js";
 
   // create a single instance of the compiler to allow caching
   var devCompiler = webpack(myDevConfig);

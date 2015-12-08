@@ -9,12 +9,12 @@ export default class extends WinJSRocks.Plugin.Base {
   setup(options, callback) {
     var that = this;
     options = options || {}
-    options.storage = options.storage || {} 
+    options.storage = options.storage || {}
     return super.setup(options, function(err) {
       if (err)
         return callback(err);
 
-      providerKey = options.storage.provider || "indexeddb";
+      var providerKey = options.storage.provider || "indexeddb";
       switch (providerKey) {
         case "indexeddb":
           that.application.builder.registerProvider("winjsrocks-local-storage", IndexDBStorage);
