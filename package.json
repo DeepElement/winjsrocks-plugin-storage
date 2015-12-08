@@ -7,7 +7,7 @@
   "name": "winjsrocks-plugin-storage",
   "private": false,
   "description": "WinJS-based MVVM architecture for cross-platform apps",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "keywords": [
     "winjs",
     "commonjs",
