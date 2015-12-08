@@ -8,6 +8,8 @@ export default class extends WinJSRocks.Plugin.Base {
 
   setup(options, callback) {
     var that = this;
+    options = options || {}
+    options.storage = options.storage || {} 
     return super.setup(options, function(err) {
       if (err)
         return callback(err);
