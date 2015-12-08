@@ -14,7 +14,7 @@ gulp.task("dist", function(cb) {
   runSequence(
     'dist:clean',
     'dist:package:debug',
-    'dist:package:release'
+    'dist:package:release',
     cb);
 });
 
