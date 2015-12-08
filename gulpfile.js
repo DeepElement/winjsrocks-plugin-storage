@@ -2,7 +2,8 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
   runSequence = require('gulp-run-sequence'),
   rimraf = require('rimraf'),
-  fs = require('fs-extra');
+  fs = require('fs-extra'),
+  replace = require('gulp-replace');
 
 var gutil = require("gulp-util"),
   webpack = require("webpack"),
