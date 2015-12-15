@@ -5,7 +5,7 @@ export default class extends WinJSRocks.Provider.Base {
     super(application);
   }
 
-  get localStorageKey(){
+  get localStorageKey() {
     return this.application.instanceKey;
   }
 
@@ -85,6 +85,20 @@ export default class extends WinJSRocks.Provider.Base {
         return callback(e.target.error);
       };
     });
+  }
+
+  clear(options, callback) {
+    var that = this;
+    var deleteRequest = indexedDB.deleteDatabase(that.localStorageKey)
+    deleteRequest.onblocked = function() {
+      return callback("delete-blocked");
+    }
+    deleteRequest.onsuccess = function(e) {
+      return callback(null, true);
+    };
+    deleteRequest.onerror = function(e) {
+      return callback(e, false);
+    };
   }
 
   _getCreateDb(data, callback) {
