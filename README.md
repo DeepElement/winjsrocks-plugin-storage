@@ -2,6 +2,8 @@
 
 Contains storage related plugnis for the [WinJSRocks](http://winjs.rocks) MVVM Framework for WinJS apps.
 
+This plugin extends the `CoreLocalStorageProvider` in `WinJSRocks` and adheres to the same API standard 
+
 # Activation
 To activate, import the plugin project from npm:
 
